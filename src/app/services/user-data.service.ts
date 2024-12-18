@@ -19,9 +19,7 @@ export class UserDataService {
   constructor() {
     // Initialize the userData from localStorage
     const storedUsers = this.getUsersFromLocalStorage();
-    if (storedUsers.length) {
-      this.userData = storedUsers;
-    }
+    this.userData = storedUsers;
   }
 
   private getUsersFromLocalStorage(): UserData[] {
@@ -29,17 +27,28 @@ export class UserDataService {
     return users ? JSON.parse(users) : [];
   }
 
-  private saveUsersToLocalStorage() {
+  private saveUsersToLocalStorage(): void {
     localStorage.setItem('users', JSON.stringify(this.userData));
   }
 
   deleteUser(userId: number): void {
-    const updatedUsers = this.userSubject.value.filter(user => user.id !== userId);
-    this.userData = updatedUsers; // Update the in-memory user data
-    this.userSubject.next(updatedUsers); // Emit updated users list
-    this.saveUsersToLocalStorage(); // Save the updated data to localStorage
+    this.userData = this.userData.filter(user => user.id !== userId);
+    this.userSubject.next(this.userData); // Emit updated users list
+    this.saveUsersToLocalStorage(); // Save updated data to localStorage
   }
 
+  addUser(userName: string, workout: { type: string; minutes: number }) {
+    const newUser: UserData = {
+      id: this.userData.length + 1, // Generate unique ID
+      name: userName,
+      workouts: [workout],
+    };
+
+    this.userData.push(newUser);
+    this.userSubject.next(this.userData); // Emit updated users list
+    this.saveUsersToLocalStorage(); // Save updated data to localStorage
+  }
+  
   addOrUpdateUser(userName: string, workout: { type: string; minutes: number }) {
     const existingUser = this.userData.find((user) => user.name === userName);
 
@@ -58,7 +67,7 @@ export class UserDataService {
     } else {
       // Add new user
       const newUser: UserData = {
-        id: this.userData.length + 1,
+        id: this.userData.length + 1, // Unique ID generation logic
         name: userName,
         workouts: [workout],
       };
@@ -67,6 +76,6 @@ export class UserDataService {
 
     // Emit updated data to subscribers
     this.userSubject.next(this.userData);
-    this.saveUsersToLocalStorage(); // Save the updated data to localStorage
+    this.saveUsersToLocalStorage(); // Save updated data to localStorage
   }
 }

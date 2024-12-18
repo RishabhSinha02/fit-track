@@ -9,6 +9,8 @@
     [rows]="5"
     [tableStyle]="{ 'min-width': '50rem' }"
     [rowsPerPageOptions]="[5, 10, 20]"
+    [(first)]="first"
+    (onPage)="onPage($event)"
     class="shadow-lg rounded-lg overflow-hidden"
   >
     <ng-template #header>

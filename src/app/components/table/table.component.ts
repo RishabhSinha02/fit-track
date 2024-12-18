@@ -12,6 +12,7 @@ import { TableModule } from 'primeng/table';
 })
 export class TableComponent {
   users$;
+  first = 0; // Used to track current page
 
   constructor(private userDataService: UserDataService) {
     this.users$ = this.userDataService.users$;
@@ -28,5 +29,15 @@ export class TableComponent {
   getWorkoutDetails(workouts: any[]): string {
     return workouts.map(workout => `${workout.type} (${workout.minutes} min)`).join(', ');
   }
-  
+
+  // Called when adding a new user
+  addUser(userName: string, workout: { type: string; minutes: number }) {
+    this.userDataService.addUser(userName, workout);
+    // Ensure the table reloads and pagination updates correctly
+    this.first = 0; // Reset to first page when a new user is added
+  }
+
+  onPage(event: any) {
+  this.first = event.first; // Update the first page index on page change
+}
 }
