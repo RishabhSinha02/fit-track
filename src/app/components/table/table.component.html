@@ -1,31 +1,28 @@
-<table class="min-w-full table-auto bg-white shadow-md rounded-lg overflow-hidden">
+<div *ngIf="(users$ | async)?.length === 0; else tableContent" class="no-data">
+  No data available.
+</div>
+
+<ng-template #tableContent>
+  <table>
     <thead>
-      <tr class="bg-gray-100 text-left">
-        <th class="px-4 py-3 text-sm font-semibold text-gray-700">Name</th>
-        <th class="px-4 py-3 text-sm font-semibold text-gray-700">Workouts</th>
-        <th class="px-4 py-3 text-sm font-semibold text-gray-700">Number of Workouts</th>
-        <th class="px-4 py-3 text-sm font-semibold text-gray-700">Total Workout Minutes</th>
-        <th class="px-4 py-3 text-sm font-semibold text-gray-700">Actions</th>
+      <tr>
+        <th>Name</th>
+        <th>Workouts</th>
+        <th>Total Workout Minutes</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users" class="border-b border-gray-200 hover:bg-gray-50">
-        <td class="px-4 py-3 text-sm text-gray-800">{{ user.name }}</td>
-        <td class="px-4 py-3 text-sm text-gray-600">
-          <ul class="list-none pl-0">
-            <li *ngFor="let workout of user.workouts" class="flex items-center space-x-2">
-              <span>{{ workout.type }} - {{ workout.minutes }} mins</span>
-            </li>
-          </ul>
+      <tr *ngFor="let user of users$ | async">
+        <td>{{ user.name }}</td>
+        <td>{{ user.workouts.length }}</td>
+        <td>
+          {{getTotalWorkoutMinutes(user.workouts)}}
         </td>
-        <td class="px-4 py-3 text-sm text-gray-600">{{ user.workouts.length }}</td>
-        <td class="px-4 py-3 text-sm text-gray-600">{{ calculateTotalMinutes(user.workouts) }}</td>
-        <td class="px-4 py-3 text-sm text-gray-600">
-          <button (click)="deleteUser(user.id)" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition duration-200">
-            Delete
-          </button>
+        <td>
+          <button (click)="deleteUser(user.id)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
-  
+</ng-template>

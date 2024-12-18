@@ -1,58 +1,63 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+export interface UserData {
+  id: number;
+  name: string;
+  workouts: { type: string; minutes: number }[];
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserDataService {
-  private usersKey = 'fitTrackUsers';
+  private userData: UserData[] = [
+    {
+      id: 1,
+      name: 'John Doe',
+      workouts: [
+        { type: 'Running', minutes: 30 },
+        { type: 'Cycling', minutes: 45 },
+      ],
+    },
+  ];
 
-  constructor() {
-    // Initialize localStorage with default data if empty
-    if (!localStorage.getItem(this.usersKey)) {
-      localStorage.setItem(
-        this.usersKey,
-        JSON.stringify([
-          {
-            id: 1,
-            name: 'John Doe',
-            workouts: [
-              { type: 'Running', minutes: 30 },
-              { type: 'Cycling', minutes: 45 },
-            ],
-          },
-        ])
-      );
-    }
+  private userSubject = new BehaviorSubject<UserData[]>(this.userData);
+  public users$ = this.userSubject.asObservable();
+
+
+  deleteUser(userId: number): void {
+    const updatedUsers = this.userSubject.value.filter(user => user.id !== userId);
+    this.userSubject.next(updatedUsers); // Emit updated users list
   }
 
-  getUsers(): any[] {
-    return JSON.parse(localStorage.getItem(this.usersKey) || '[]');
-  }
-
-  addOrUpdateUser(name: string, workoutType: string, minutes: number): void {
-    const users = this.getUsers();
-    const existingUser = users.find((user) => user.name === name);
+  addOrUpdateUser(userName: string, workout: { type: string; minutes: number }) {
+    const existingUser = this.userData.find((user) => user.name === userName);
 
     if (existingUser) {
-      // Update existing user's workout
-      const workout = existingUser.workouts.find(
-        (w: { type: string; minutes: number }) => w.type === workoutType
+      // Check if the workout already exists for the user
+      const existingWorkout = existingUser.workouts.find(
+        (w) => w.type === workout.type
       );
-      if (workout) {
-        workout.minutes += minutes;
+      if (existingWorkout) {
+        // Update workout minutes
+        existingWorkout.minutes += workout.minutes;
       } else {
-        existingUser.workouts.push({ type: workoutType, minutes });
+        // Add new workout
+        existingUser.workouts.push(workout);
       }
     } else {
       // Add new user
-      const newUser = {
-        id: users.length + 1,
-        name,
-        workouts: [{ type: workoutType, minutes }],
+      const newUser: UserData = {
+        id: this.userData.length + 1,
+        name: userName,
+        workouts: [workout],
       };
-      users.push(newUser);
+      this.userData.push(newUser);
     }
 
-    localStorage.setItem(this.usersKey, JSON.stringify(users));
+    // Emit updated data to subscribers
+    this.userSubject.next(this.userData);
   }
+  
 }

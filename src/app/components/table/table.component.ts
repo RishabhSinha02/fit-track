@@ -1,35 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserDataService } from '../../services/user-data.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone: true,
   selector: 'app-table',
+  standalone: true,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   imports: [CommonModule],
 })
-export class TableComponent implements OnInit {
-  users: any[] = [];
+export class TableComponent {
+  users$;
 
-  constructor(private userDataService: UserDataService) {}
-
-  ngOnInit(): void {
-    this.loadUsers();
+  constructor(private userDataService: UserDataService) {
+    this.users$ = this.userDataService.users$;
   }
 
-  loadUsers(): void {
-    this.users = this.userDataService.getUsers();
+  getTotalWorkoutMinutes(workouts: any[]): number {
+    return workouts.reduce((total, workout) => total + workout.minutes, 0);
   }
 
   deleteUser(userId: number): void {
-    const updatedUsers = this.users.filter((user) => user.id !== userId);
-    localStorage.setItem('fitTrackUsers', JSON.stringify(updatedUsers));
-    this.loadUsers();
+    this.userDataService.deleteUser(userId); // Calls the service method to update the users list
   }
-
-  calculateTotalMinutes(workouts: { type: string; minutes: number }[]): number {
-    return workouts.reduce((total, workout) => total + workout.minutes, 0);
-  }  
   
 }

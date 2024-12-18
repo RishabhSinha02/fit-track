@@ -1,7 +1,30 @@
 
   
   
-
+<div class="flex flex-col gap-4 p-4">
+    <input
+      type="text"
+      placeholder="Enter Name"
+      [(ngModel)]="name"
+      class="p-2 border rounded"
+    />
+    <input
+      type="text"
+      placeholder="Enter Workout Type"
+      [(ngModel)]="workoutType"
+      class="p-2 border rounded"
+    />
+    <input
+      type="number"
+      placeholder="Enter Minutes"
+      [(ngModel)]="workoutMinutes"
+      class="p-2 border rounded"
+    />
+    <button (click)="addWorkout()" class="p-2 bg-blue-500 text-white rounded">
+      Add Workout
+    </button>
+  </div>
+  
 <div>
     <div class="my-4 mt-12 flex justify-between">
         <div class="flex gap-4">
@@ -60,7 +83,7 @@
             </div>
         </div>
         <div class="flex flex-col justify-end">
-            <p-button (click)="showDialog()" class="card flex gap-2 font-bold rounded-lg">
+            <button class="card flex gap-2 font-bold rounded-lg">
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11 0.714279C11.7101 0.714279 12.2857 1.28991 12.2857 1.99999V9.71428H20C20.7101 9.71428 21.2857 10.2899 21.2857 11C21.2857 11.7101 20.7101 12.2857 20 12.2857H12.2857V20C12.2857 20.7101 11.7101 21.2857 11 21.2857C10.2899 21.2857 9.71429 20.7101 9.71429 20V12.2857H2.00001C1.28993 12.2857 0.714294 11.7101 0.714294 11C0.714294 10.2899 1.28993 9.71428 2.00001 9.71428H9.71429V1.99999C9.71429 1.28991 10.2899 0.714279 11 0.714279Z" fill="white"/>
                     </svg>
@@ -68,7 +91,7 @@
                 <div>
                     Add Users
                 </div>
-            </p-button>
+            </button>
         </div>
 
     </div>
@@ -79,7 +102,7 @@
 
 <!-- Add Modal  -->
 
-
+<!-- 
 <p-dialog header="Add User" [modal]="true" [(visible)]="visible" [style]="{ width: '35rem' }">
     <span class="p-text-secondary block mb-8">Use same username for adding workouts for existing users</span>
 
@@ -115,4 +138,4 @@
         <p-button label="Cancel" severity="secondary" (click)="visible = false" />
         <p-button label="Add" (click)="addUser()" />
     </div>
-</p-dialog>
+</p-dialog> -->
