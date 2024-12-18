@@ -5,7 +5,8 @@ import { TableModule } from 'primeng/table';
   selector: 'app-table',
   imports: [TableModule],
   templateUrl: './table.component.html',
-  styleUrl: './table.component.css'
+  styleUrl: './table.component.css',
+  standalone: true,
 })
 export class TableComponent {
 

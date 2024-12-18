@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-filters',
   imports: [],
   templateUrl: './filters.component.html',
-  styleUrl: './filters.component.css'
+  styleUrl: './filters.component.css',
+  standalone: true,
 })
 export class FiltersComponent {
 

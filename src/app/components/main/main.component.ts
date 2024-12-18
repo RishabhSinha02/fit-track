@@ -8,7 +8,8 @@ import { FiltersComponent } from "../filters/filters.component";
   selector: 'app-main',
   imports: [HeaderComponent, SidebarComponent, TableComponent, FiltersComponent],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.css'
+  styleUrl: './main.component.css',
+  standalone: true,
 })
 export class MainComponent {
 

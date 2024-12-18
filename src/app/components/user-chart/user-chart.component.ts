@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-user-chart',
   imports: [],
   templateUrl: './user-chart.component.html',
-  styleUrl: './user-chart.component.css'
+  styleUrl: './user-chart.component.css',
+  standalone: true,
 })
 export class UserChartComponent {
 
