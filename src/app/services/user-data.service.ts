@@ -11,24 +11,33 @@ export interface UserData {
   providedIn: 'root',
 })
 export class UserDataService {
-  private userData: UserData[] = [
-    {
-      id: 1,
-      name: 'John Doe',
-      workouts: [
-        { type: 'Running', minutes: 30 },
-        { type: 'Cycling', minutes: 45 },
-      ],
-    },
-  ];
+  private userData: UserData[] = [];
 
-  private userSubject = new BehaviorSubject<UserData[]>(this.userData);
+  private userSubject = new BehaviorSubject<UserData[]>(this.getUsersFromLocalStorage());
   public users$ = this.userSubject.asObservable();
 
+  constructor() {
+    // Initialize the userData from localStorage
+    const storedUsers = this.getUsersFromLocalStorage();
+    if (storedUsers.length) {
+      this.userData = storedUsers;
+    }
+  }
+
+  private getUsersFromLocalStorage(): UserData[] {
+    const users = localStorage.getItem('users');
+    return users ? JSON.parse(users) : [];
+  }
+
+  private saveUsersToLocalStorage() {
+    localStorage.setItem('users', JSON.stringify(this.userData));
+  }
 
   deleteUser(userId: number): void {
     const updatedUsers = this.userSubject.value.filter(user => user.id !== userId);
+    this.userData = updatedUsers; // Update the in-memory user data
     this.userSubject.next(updatedUsers); // Emit updated users list
+    this.saveUsersToLocalStorage(); // Save the updated data to localStorage
   }
 
   addOrUpdateUser(userName: string, workout: { type: string; minutes: number }) {
@@ -58,6 +67,6 @@ export class UserDataService {
 
     // Emit updated data to subscribers
     this.userSubject.next(this.userData);
+    this.saveUsersToLocalStorage(); // Save the updated data to localStorage
   }
-  
 }
