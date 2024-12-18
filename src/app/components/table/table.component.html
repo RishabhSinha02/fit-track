@@ -1,28 +1,41 @@
-<div *ngIf="(users$ | async)?.length === 0; else tableContent" class="no-data">
-  No data available.
+<div *ngIf="(users$ | async)?.length === 0; else tableContent" class="no-data text-center p-4 bg-gray-100 rounded-lg shadow-md">
+  <p class="text-lg font-semibold text-gray-600">No data available.</p>
 </div>
 
 <ng-template #tableContent>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Workouts</th>
-        <th>Total Workout Minutes</th>
-        <th>Actions</th>
+  <p-table
+    [value]="(users$ | async) || []"
+    [paginator]="true"
+    [rows]="5"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    class="shadow-lg rounded-lg overflow-hidden"
+  >
+    <ng-template #header>
+      <tr class="bg-gray-200 text-left">
+        <th class="px-4 py-2 text-sm font-medium text-gray-700">Name</th>
+        <th class="px-4 py-2 text-sm font-medium text-gray-700">Workouts</th>
+        <th class="px-4 py-2 text-sm font-medium text-gray-700">Total Workout Minutes</th>
+        <th class="px-4 py-2 text-sm font-medium text-gray-700">Actions</th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users$ | async">
-        <td>{{ user.name }}</td>
-        <td>{{ user.workouts.length }}</td>
-        <td>
-          {{getTotalWorkoutMinutes(user.workouts)}}
-        </td>
-        <td>
-          <button (click)="deleteUser(user.id)">Delete</button>
+    </ng-template>
+    <ng-template #body let-user>
+      <tr class="border-b border-gray-200 hover:bg-gray-50">
+        <td class="px-4 py-2 text-sm text-gray-900">{{ user.name }}</td>
+        <td class="px-4 py-2 text-sm text-gray-900">{{ getWorkoutDetails(user.workouts) }}</td>
+        <td class="px-4 py-2 text-sm text-gray-900">{{ getTotalWorkoutMinutes(user.workouts) }}</td>
+        <td class="px-4 py-2 text-sm text-gray-900">
+          <button
+            (click)="deleteUser(user.id)"
+            class="bg-red-500 text-white py-1 px-3 rounded-lg text-sm hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+            <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z" clip-rule="evenodd" />
+          </svg>
+          
+          </button>
         </td>
       </tr>
-    </tbody>
-  </table>
+    </ng-template>
+  </p-table>
 </ng-template>
