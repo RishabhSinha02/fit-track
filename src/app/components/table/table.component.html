@@ -1,25 +1,29 @@
-<table class="min-w-full table-auto border-collapse mt-5">
+<table class="min-w-full table-auto bg-white shadow-md rounded-lg overflow-hidden">
     <thead>
-      <tr class="bg-gray-100">
-        <th class="px-4 py-2 text-left border-b">Name</th>
-        <th class="px-4 py-2 text-left border-b">Workout</th>
-        <th class="px-4 py-2 text-left border-b">Number of Workouts</th>
-        <th class="px-4 py-2 text-left border-b">Total Workout Minutes</th>
+      <tr class="bg-gray-100 text-left">
+        <th class="px-4 py-3 text-sm font-semibold text-gray-700">Name</th>
+        <th class="px-4 py-3 text-sm font-semibold text-gray-700">Workouts</th>
+        <th class="px-4 py-3 text-sm font-semibold text-gray-700">Number of Workouts</th>
+        <th class="px-4 py-3 text-sm font-semibold text-gray-700">Total Workout Minutes</th>
+        <th class="px-4 py-3 text-sm font-semibold text-gray-700">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of userData" class="bg-white">
-        <td class="px-4 py-2 border-b">{{ user.name }}</td>
-        <td class="px-4 py-2 border-b">
-          <ul>
-            <li *ngFor="let workout of user.workouts">
-              {{ workout.type }}
+      <tr *ngFor="let user of users" class="border-b border-gray-200 hover:bg-gray-50">
+        <td class="px-4 py-3 text-sm text-gray-800">{{ user.name }}</td>
+        <td class="px-4 py-3 text-sm text-gray-600">
+          <ul class="list-none pl-0">
+            <li *ngFor="let workout of user.workouts" class="flex items-center space-x-2">
+              <span>{{ workout.type }} - {{ workout.minutes }} mins</span>
             </li>
           </ul>
         </td>
-        <td class="px-4 py-2 border-b">{{ user.workouts.length }}</td>
-        <td class="px-4 py-2 border-b">
-          {{ getTotalWorkoutMinutes(user.workouts) }}
+        <td class="px-4 py-3 text-sm text-gray-600">{{ user.workouts.length }}</td>
+        <td class="px-4 py-3 text-sm text-gray-600">{{ calculateTotalMinutes(user.workouts) }}</td>
+        <td class="px-4 py-3 text-sm text-gray-600">
+          <button (click)="deleteUser(user.id)" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 transition duration-200">
+            Delete
+          </button>
         </td>
       </tr>
     </tbody>
