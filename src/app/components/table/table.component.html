@@ -1,1 +1,27 @@
-<p>table works!</p>
+<table class="min-w-full table-auto border-collapse mt-5">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="px-4 py-2 text-left border-b">Name</th>
+        <th class="px-4 py-2 text-left border-b">Workout</th>
+        <th class="px-4 py-2 text-left border-b">Number of Workouts</th>
+        <th class="px-4 py-2 text-left border-b">Total Workout Minutes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userData" class="bg-white">
+        <td class="px-4 py-2 border-b">{{ user.name }}</td>
+        <td class="px-4 py-2 border-b">
+          <ul>
+            <li *ngFor="let workout of user.workouts">
+              {{ workout.type }}
+            </li>
+          </ul>
+        </td>
+        <td class="px-4 py-2 border-b">{{ user.workouts.length }}</td>
+        <td class="px-4 py-2 border-b">
+          {{ getTotalWorkoutMinutes(user.workouts) }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
