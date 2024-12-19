@@ -1,24 +1,29 @@
-<div class="grid grid-rows-3 gap-4">
+<div class="grid grid-rows-3 gap-4 h-screen">
+    <!-- First Card -->
     <div class="card bg-[#FBFBFB] flex flex-col justify-center py-8 px-12 rounded-3xl row-span-1">
-        <div class="px-8">
-            <img src="assets/img/logo.png" alt="Logo">
-
-        </div>
-        <h5 class="card-title flex justify-center font-bold text-[26px]">Fit Track</h5>
+      <div class="px-8">
+        <img src="assets/img/logo.png" alt="Logo">
+      </div>
+      <h5 class="card-title flex justify-center font-bold text-[26px]">Fit Track</h5>
     </div>
-
-    <div class="card bg-[#FBFBFB] row-span-2 p-4 py-6 rounded-3xl">
-        <div class="font-semibold">USERS</div>
-        <div class="menu my-4">
-            <button class="card bg-[#2AAF74] text-white p-3 font-bold rounded-xl w-full">ALL</button>
-            <div class="menu-item gap-4 my-2">
-                <button class="card bg-[#FBFBFB] hover:bg-gray-200 text-gray-600 p-3 font-bold rounded-xl w-full">USER 1</button>
-                <button class="card bg-[#FBFBFB] hover:bg-gray-200 text-gray-600 p-3 font-bold rounded-xl w-full">USER 1</button>
-                <button class="card bg-[#FBFBFB] hover:bg-gray-200 text-gray-600 p-3 font-bold rounded-xl w-full">USER 1</button>
-                <button class="card bg-[#FBFBFB] hover:bg-gray-200 text-gray-600 p-3 font-bold rounded-xl w-full">USER 1</button>
-                <button class="card bg-[#FBFBFB] hover:bg-gray-200 text-gray-600 p-3 font-bold rounded-xl w-full">USER 1</button>
-
+  
+    <!-- Second Card (Scrollable) -->
+    <div class="card bg-[#FBFBFB] row-span-2 p-4 py-6 rounded-3xl overflow-y-auto h-full">
+      <div class="font-semibold">USERS</div>
+      <div class="menu my-4">
+        <button class="card bg-[#2AAF74] text-white p-3 font-bold rounded-xl w-full">ALL</button>
+        <div class="menu-item gap-4 my-2">
+          <button *ngFor="let user of users" class="card bg-[#FBFBFB] pl-8 hover:bg-gray-200 text-gray-600 p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
+            <div class="mt-1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                    <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
+                  </svg>
+                  
             </div>
+            <div>{{ user.name }}</div>
+          </button>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+  
