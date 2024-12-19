@@ -7,7 +7,7 @@ import { TableModule } from 'primeng/table';
   selector: 'app-table',
   standalone: true,
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss'],
+  styleUrls: ['./table.component.css'],
   imports: [CommonModule, TableModule],
 })
 export class TableComponent {
@@ -33,8 +33,8 @@ export class TableComponent {
   // Called when adding a new user
   addUser(userName: string, workout: { type: string; minutes: number }) {
     this.userDataService.addUser(userName, workout);
-    // Ensure the table reloads and pagination updates correctly
-    this.first = 0; // Reset to first page when a new user is added
+    
+    this.first = 0;
   }
 
   onPage(event: any) {

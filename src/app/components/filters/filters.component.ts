@@ -9,7 +9,7 @@ import {DialogModule} from 'primeng/dialog';
   selector: 'app-filters',
   standalone: true,
   templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.scss'],
+  styleUrls: ['./filters.component.css'],
   imports: [CommonModule, FormsModule, ButtonModule, DialogModule],
 })
 export class FiltersComponent {

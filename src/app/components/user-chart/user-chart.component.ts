@@ -6,7 +6,7 @@ import { ChartModule } from 'primeng/chart';
   standalone: true,
   imports: [ChartModule],
   templateUrl: './user-chart.component.html',
-  styleUrls: ['./user-chart.component.scss'],
+  styleUrls: ['./user-chart.component.css'],
 })
 export class UserChartComponent implements OnInit {
   @Input() user: any; // Receive user data from the parent component
