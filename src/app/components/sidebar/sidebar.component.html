@@ -1,54 +1,78 @@
 <div class="grid grid-rows-3 gap-4 h-screen">
     <!-- First Card -->
     <div class="card bg-[#FBFBFB] flex flex-col justify-center py-8 px-12 rounded-3xl row-span-1">
-      <div class="px-8">
-        <img src="assets/img/logo.png" alt="Logo">
-      </div>
-      <h5 class="card-title flex justify-center font-bold text-[26px]">Fit Track</h5>
+        <div class="px-8">
+            <img src="assets/img/logo.png" alt="Logo">
+        </div>
+        <h5 class="card-title flex justify-center font-bold text-[26px]">Fit Track</h5>
     </div>
-  
+
     <!-- Second Card (Scrollable) -->
     <div class="card bg-[#FBFBFB] row-span-2 p-4 py-6 rounded-3xl overflow-y-auto h-full">
-      <div class="font-semibold">USERS</div>
-      <div class="menu my-4">
+        <div class="font-semibold">USERS</div>
+        <div class="menu my-4">
 
-        <div *ngIf="sidebarSelected === 'All'; else notAll">
-            <button class="card bg-[#2AAF74] pl-8 text-white p-3 font-bold flex justify-start gap-2 rounded-xl w-full"><div class="mt-1">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-                    <path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z" />
-                  </svg>
-                  
-                  
+            <div *ngIf="sidebarSelected === 'All'; else notAll">
+                <button
+                    class="card bg-[#2AAF74] pl-8 text-white p-3 font-bold flex justify-start gap-2 rounded-xl w-full">
+                    <div class="mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                            <path
+                                d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z" />
+                        </svg>
+                    </div>
+                    <div>ALL</div>
+                </button>
             </div>
-            <div>ALL</div></button>
-          </div>
-          
-          <ng-template #notAll>
-            <button class="card bg-[#FBFBFB] pl-8 hover:bg-gray-200 text-gray-600 p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
-                <div class="mt-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-                        <path d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z" />
-                      </svg>
-                      
-                      
+
+            <ng-template #notAll>
+                <button (click)="sidebarChange('All')"
+                    class="card bg-[#FBFBFB] pl-8 hover:bg-gray-200 text-gray-600 p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
+                    <div class="mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                            <path
+                                d="M10 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM1.49 15.326a.78.78 0 0 1-.358-.442 3 3 0 0 1 4.308-3.516 6.484 6.484 0 0 0-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 0 1-2.07-.655ZM16.44 15.98a4.97 4.97 0 0 0 2.07-.654.78.78 0 0 0 .357-.442 3 3 0 0 0-4.308-3.517 6.484 6.484 0 0 1 1.907 3.96 2.32 2.32 0 0 1-.026.654ZM18 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM5.304 16.19a.844.844 0 0 1-.277-.71 5 5 0 0 1 9.947 0 .843.843 0 0 1-.277.71A6.975 6.975 0 0 1 10 18a6.974 6.974 0 0 1-4.696-1.81Z" />
+                        </svg>
+                    </div>
+                    <div>ALL</div>
+                </button>
+            </ng-template>
+
+            <div class="menu-item gap-4 my-2">
+                <div class="my-1" *ngFor="let user of users">
+
+                    <div *ngIf="sidebarSelected === user.name; else notAll">
+                        <button (click)="sidebarChange(user.name)"
+                            class="card bg-[#2AAF74] pl-8 text-white p-3 font-bold flex justify-start gap-2 rounded-xl w-full">
+                            <div class="mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                    class="size-5">
+                                    <path
+                                        d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
+                                </svg>
+                            </div>
+                            <div>{{ user.name }}</div>
+                        </button>
+                    </div>
+                    <ng-template #notAll>
+                        <button (click)="sidebarChange(user.name)"
+                            [ngClass]="{'bg-[#FBFBFB] hover:bg-gray-200 text-gray-600': sidebarSelected !== user.name, 
+                                       'bg-[#2AAF74] text-white': sidebarSelected === user.name}"
+                            class="card pl-8 p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
+                            <div class="mt-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                    class="size-5">
+                                    <path
+                                        d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
+                                </svg>
+                            </div>
+                            <div>{{ user.name }}</div>
+                        </button>
+                    </ng-template>
+
                 </div>
-                <div>ALL</div>
-            </button>
-          </ng-template>
-          
 
-        <div class="menu-item gap-4 my-2">
-          <button *ngFor="let user of users" class="card bg-[#FBFBFB] pl-8 hover:bg-gray-200 text-gray-600 p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
-            <div class="mt-1">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
-                    <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
-                  </svg>
-                  
             </div>
-            <div>{{ user.name }}</div>
-          </button>
         </div>
-      </div>
     </div>
-  </div>
-  
+</div>
