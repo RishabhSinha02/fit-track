@@ -101,12 +101,11 @@ export class UserDataService {
     },
   ];
   
-
+  private currentDataSource: 'real' | 'sample' = 'real';
   private userSubject = new BehaviorSubject<UserData[]>(this.getUsersFromLocalStorage());
   public users$ = this.userSubject.asObservable();
 
   constructor() {
-    // Initialize the userData from localStorage
     const storedUsers = this.getUsersFromLocalStorage();
     this.userData = storedUsers;
   }
@@ -121,58 +120,83 @@ export class UserDataService {
   }
 
   deleteUser(userId: number): void {
-    this.userData = this.userData.filter(user => user.id !== userId);
-    this.userSubject.next(this.userData); // Emit updated users list
-    this.saveUsersToLocalStorage(); // Save updated data to localStorage
+    let updatedUsers;
+    if (this.currentDataSource === 'real') {
+      updatedUsers = this.userData.filter(user => user.id !== userId);
+      this.userData = updatedUsers;
+    } else {
+      updatedUsers = this.sampleData.filter(user => user.id !== userId);
+      this.sampleData = updatedUsers;
+    }
+    this.userSubject.next(this.currentDataSource === 'real' ? this.userData : this.sampleData);
+    this.saveUsersToLocalStorage(); // Always save real data to localStorage
   }
 
   addUser(userName: string, workout: { type: string; minutes: number }) {
     const newUser: UserData = {
-      id: this.userData.length + 1, // Generate unique ID
+      id: this.generateUniqueId(),
       name: userName,
       workouts: [workout],
     };
 
-    this.userData.push(newUser);
-    this.userSubject.next(this.userData); // Emit updated users list
-    this.saveUsersToLocalStorage(); // Save updated data to localStorage
+    if (this.currentDataSource === 'real') {
+      this.userData.push(newUser);
+    } else {
+      this.sampleData.push(newUser);
+    }
+
+    this.userSubject.next(this.currentDataSource === 'real' ? this.userData : this.sampleData);
+    this.saveUsersToLocalStorage(); // Save real data to localStorage
   }
-  
+
   addOrUpdateUser(userName: string, workout: { type: string; minutes: number }) {
-    const existingUser = this.userData.find((user) => user.name === userName);
+    const existingUser = this.getExistingUser(userName);
 
     if (existingUser) {
-      // Check if the workout already exists for the user
       const existingWorkout = existingUser.workouts.find(
         (w) => w.type === workout.type
       );
       if (existingWorkout) {
-        // Update workout minutes
         existingWorkout.minutes += workout.minutes;
       } else {
-        // Add new workout
         existingUser.workouts.push(workout);
       }
     } else {
-      // Add new user
       const newUser: UserData = {
-        id: this.userData.length + 1, // Unique ID generation logic
+        id: this.generateUniqueId(),
         name: userName,
         workouts: [workout],
       };
-      this.userData.push(newUser);
+      if (this.currentDataSource === 'real') {
+        this.userData.push(newUser);
+      } else {
+        this.sampleData.push(newUser);
+      }
     }
 
-    // Emit updated data to subscribers
-    this.userSubject.next(this.userData);
-    this.saveUsersToLocalStorage(); // Save updated data to localStorage
+    this.userSubject.next(this.currentDataSource === 'real' ? this.userData : this.sampleData);
+    this.saveUsersToLocalStorage(); // Save real data to localStorage
+  }
+
+  private generateUniqueId(): number {
+    return this.currentDataSource === 'real'
+      ? this.userData.length + 1
+      : this.sampleData.length + 1;
+  }
+
+  private getExistingUser(userName: string): UserData | undefined {
+    return this.currentDataSource === 'real'
+      ? this.userData.find((user) => user.name === userName)
+      : this.sampleData.find((user) => user.name === userName);
   }
 
   switchToSampleData(): void {
-    this.userSubject.next(this.sampleData); // Emit sample data
+    this.currentDataSource = 'sample';
+    this.userSubject.next(this.sampleData);
   }
 
   switchToRealData(): void {
-    this.userSubject.next(this.userData); // Emit real data
+    this.currentDataSource = 'real';
+    this.userSubject.next(this.userData);
   }
 }
