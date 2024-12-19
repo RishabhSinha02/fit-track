@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 export class SidebarComponent implements OnInit {
   users: UserData[] = [];
 
+  sidebarSelected = 'All';
+
   constructor(private userDataService: UserDataService) {}
 
   ngOnInit(): void {
