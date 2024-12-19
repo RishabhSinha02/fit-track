@@ -1,20 +1,19 @@
 <div class="grid grid-rows-3 gap-4 h-screen">
     <!-- First Card -->
-    <div class="card bg-[#FBFBFB] flex flex-col justify-center py-8 px-16 rounded-3xl row-span-1">
+    <div class="card bg-[#FBFBFB] dark:bg-[#1F1F1F] dark:border-[#333] flex flex-col justify-center py-8 px-16 rounded-3xl row-span-1">
         <div class="px-8">
             <img src="assets/img/logo.png" alt="Logo">
         </div>
-        <h5 class="card-title flex justify-center font-bold text-[26px]">Fit Track</h5>
+        <h5 class="card-title flex justify-center font-bold text-[26px] dark:text-white">Fit Track</h5>
     </div>
 
     <!-- Second Card (Scrollable) -->
-    <div class="card bg-[#FBFBFB] row-span-2 p-4 py-6 rounded-3xl overflow-y-auto h-full">
-        <div class="font-semibold">USERS</div>
+    <div class="card bg-[#FBFBFB] dark:bg-[#1F1F1F] dark:border-[#333] row-span-2 p-4 py-6 rounded-3xl overflow-y-auto h-full">
+        <div class="font-semibold dark:text-white">USERS</div>
         <div class="menu my-4">
-
             <div *ngIf="sidebarSelected === 'All'; else notAll">
                 <button
-                    class="card bg-[#2AAF74] pl-8 text-white p-3 font-bold flex justify-start gap-2 rounded-xl w-full">
+                    class="card bg-[#2AAF74] pl-8 text-white p-3 font-bold flex justify-start gap-2 rounded-xl w-full dark:bg-[#2AAF74]">
                     <div class="mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                             <path
@@ -27,7 +26,7 @@
 
             <ng-template #notAll>
                 <button (click)="sidebarChange('All')"
-                    class="card bg-[#FBFBFB] pl-8 hover:bg-gray-200 text-gray-600 p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
+                    class="card bg-[#FBFBFB] hover:bg-gray-200 dark:bg-[#121212] dark:hover:bg-[#333] text-gray-100 dark:text-white p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
                     <div class="mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                             <path
@@ -40,10 +39,9 @@
 
             <div class="menu-item gap-4 my-2">
                 <div class="my-1" *ngFor="let user of users">
-
                     <div *ngIf="sidebarSelected === user.name; else notAll">
                         <button (click)="sidebarChange(user.name)"
-                            class="card bg-[#2AAF74] pl-8 text-white p-3 font-bold flex justify-start gap-2 rounded-xl w-full">
+                            class="card bg-[#2AAF74] pl-8 text-white p-3 font-bold flex justify-start gap-2 rounded-xl w-full dark:bg-[#2AAF74] dark:text-white">
                             <div class="mt-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                     class="size-5">
@@ -56,8 +54,8 @@
                     </div>
                     <ng-template #notAll>
                         <button (click)="sidebarChange(user.name)"
-                            [ngClass]="{'bg-[#FBFBFB] hover:bg-gray-200 text-gray-600': sidebarSelected !== user.name, 
-                                       'bg-[#2AAF74] text-white': sidebarSelected === user.name}"
+                            [ngClass]="{'bg-[#FBFBFB] hover:bg-gray-200 dark:bg-[#121212] dark:hover:bg-[#333] text-gray-100 dark:text-white': sidebarSelected !== user.name, 
+                                       'bg-[#2AAF74] text-white dark:bg-[#2AAF74] dark:text-white': sidebarSelected === user.name}"
                             class="card pl-8 p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
                             <div class="mt-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -69,9 +67,7 @@
                             <div>{{ user.name }}</div>
                         </button>
                     </ng-template>
-
                 </div>
-
             </div>
         </div>
     </div>
