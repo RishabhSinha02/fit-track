@@ -1,12 +1,22 @@
 <div *ngIf="sidebarSelected === 'All'">
 
-<app-header></app-header>
-<app-filters></app-filters>
-<app-table></app-table>
+    <app-header></app-header>
+    <app-filters></app-filters>
+    <app-table></app-table>
 
 </div>
-
-<div *ngIf="sidebarSelected !== 'All'">
-    <p>Showing data for selected user: {{ sidebarSelected }}</p>
-    <!-- Add code to display data for the selected user -->
-  </div>
+<div *ngIf="sidebarSelected !== 'All'">   
+    <div *ngFor="let user of users">
+        <!-- Check if the user's name matches the selected sidebar option -->
+        <div *ngIf="user.name === sidebarSelected">
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Workouts:</strong></p>
+            <ul>
+                <li *ngFor="let workout of user.workouts">
+                    <strong>Type:</strong> {{ workout.type }}, 
+                    <strong>Minutes:</strong> {{ workout.minutes }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
