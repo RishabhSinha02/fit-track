@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-header',
   imports: [ButtonModule, SelectButtonModule, ReactiveFormsModule, CommonModule],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],  // Corrected the file name from 'styleUrl' to 'styleUrls'
+  styleUrls: ['./header.component.css'], 
   standalone: true,
 })
 export class HeaderComponent implements OnInit {
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private userDataService: UserDataService) {
     this.formGroup = this.fb.group({
-      toggle: ['real'], // Default selection is real data
+      toggle: ['real'], 
     });
   }
 

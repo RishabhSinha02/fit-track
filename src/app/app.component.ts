@@ -11,9 +11,8 @@ import { MainComponent } from "./components/main/main.component";
 })
 export class AppComponent {
   title = 'fit-track';
-  sidebarSelected: string = 'All'; // Default value
+  sidebarSelected: string = 'All';
 
-  // Update the sidebarSelected value based on the emitted event from SidebarComponent
   onSidebarChange(selected: string): void {
     this.sidebarSelected = selected;
   }

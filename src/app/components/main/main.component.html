@@ -6,7 +6,7 @@
 </div>
 <div *ngIf="sidebarSelected !== 'All'">
     <div *ngFor="let user of users">
-        <!-- Check if the user's name matches the selected sidebar option -->
+       
         <div *ngIf="user.name === sidebarSelected">
             <div class="text-5xl font-semibold mb-8"> 😃 {{ user.name }}'s Workout Progress</div>
 

@@ -100,7 +100,7 @@ export class UserDataService {
       ],
     },
   ];
-  
+
   private currentDataSource: 'real' | 'sample' = 'real';
   private userSubject = new BehaviorSubject<UserData[]>(this.getUsersFromLocalStorage());
   public users$ = this.userSubject.asObservable();

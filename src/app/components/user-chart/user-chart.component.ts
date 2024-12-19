@@ -9,14 +9,14 @@ import { ChartModule } from 'primeng/chart';
   styleUrls: ['./user-chart.component.css'],
 })
 export class UserChartComponent implements OnInit {
-  @Input() user: any; // Receive user data from the parent component
+  @Input() user: any; 
 
   basicData: any; // Chart data
   basicOptions: any; // Chart options
 
   ngOnInit() {
     if (this.user) {
-      // Prepare the chart data based on the passed user
+      // Chart data
       this.basicData = {
         labels: this.user.workouts.map((workout: any) => workout.type), // Workout types
         datasets: [
@@ -27,9 +27,6 @@ export class UserChartComponent implements OnInit {
           },
         ],
       };
-
-      // Chart options (optional)
-      
     }
   }
 }

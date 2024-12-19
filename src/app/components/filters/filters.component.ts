@@ -52,11 +52,11 @@ export class FiltersComponent {
 
   onNameFilterChange(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
-    this.nameFilterChange.emit(value); // Emit the input value to the parent
+    this.nameFilterChange.emit(value); 
   }
 
   onWorkoutFilterChange(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
-    this.workoutFilterChange.emit(value); // Emit the input value to the parent
+    this.workoutFilterChange.emit(value); 
   }
 }

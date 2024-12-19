@@ -1,10 +1,8 @@
 <div class="p-16 grid grid-cols-4 gap-8">
-  <!-- Sidebar - Only visible on tablet and desktop -->
   <div class="sidebar col-span-1 hidden sm:block">
     <app-sidebar (sidebarChangeEvent)="onSidebarChange($event)"></app-sidebar>
   </div>
 
-  <!-- Content - Only visible on tablet and desktop -->
   <div class="content col-span-3 hidden sm:block">
     <app-main [sidebarSelected]="sidebarSelected"></app-main>
   </div>

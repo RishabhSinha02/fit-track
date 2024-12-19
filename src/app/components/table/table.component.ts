@@ -19,8 +19,8 @@ export class TableComponent {
   first = 0; // Used to track current page
 
   filteredUsers$;
-  nameFilter$ = new BehaviorSubject<string>(''); // Observable for name filter
-  workoutFilter$ = new BehaviorSubject<string>(''); // Observable for workout type filter
+  nameFilter$ = new BehaviorSubject<string>(''); 
+  workoutFilter$ = new BehaviorSubject<string>('');
 
   constructor(private userDataService: UserDataService) {
     this.users$ = this.userDataService.users$;
@@ -50,11 +50,11 @@ export class TableComponent {
   }
 
   onNameFilterChange(value: string): void {
-    this.nameFilter$.next(value); // Update name filter value
+    this.nameFilter$.next(value); 
   }
 
   onWorkoutFilterChange(value: string): void {
-    this.workoutFilter$.next(value); // Update workout filter value
+    this.workoutFilter$.next(value); 
   }
 
   getTotalWorkoutMinutes(workouts: any[]): number {
@@ -62,14 +62,14 @@ export class TableComponent {
   }
 
   deleteUser(userId: number): void {
-    this.userDataService.deleteUser(userId); // Calls the service method to update the users list
+    this.userDataService.deleteUser(userId); 
   }
 
   getWorkoutDetails(workouts: any[]): string {
     return workouts.map(workout => `${workout.type} (${workout.minutes} min)`).join(', ');
   }
 
-  // Called when adding a new user
+  
   addUser(userName: string, workout: { type: string; minutes: number }) {
     this.userDataService.addUser(userName, workout);
     
@@ -77,6 +77,6 @@ export class TableComponent {
   }
 
   onPage(event: any) {
-  this.first = event.first; // Update the first page index on page change
+  this.first = event.first;
 }
 }
