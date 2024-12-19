@@ -36,12 +36,24 @@ export class FiltersComponent {
     this.visible = false;
   }
 
+  cancelModal() {
+    this.name = '';
+      this.workoutType = '';
+      this.workoutMinutes = 0;
+    this.hideDialog();
+  }
+
   addWorkout() {
     if (this.name && this.workoutType && this.workoutMinutes > 0) {
-      this.userDataService.addOrUpdateUser(this.name, {
-        type: this.workoutType,
+      // Capitalize the first letter of each word
+      const formattedName = this.capitalizeWords(this.name);
+      const formattedWorkoutType = this.capitalizeWords(this.workoutType);
+  
+      this.userDataService.addOrUpdateUser(formattedName, {
+        type: formattedWorkoutType,
         minutes: this.workoutMinutes,
       });
+  
       // Reset form fields
       this.name = '';
       this.workoutType = '';
@@ -49,6 +61,14 @@ export class FiltersComponent {
       this.hideDialog();
     }
   }
+  
+  capitalizeWords(input: string): string {
+    return input
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+  
 
   onNameFilterChange(event: Event): void {
     const value = (event.target as HTMLInputElement).value;

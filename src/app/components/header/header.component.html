@@ -1,16 +1,13 @@
 <div class="flex justify-between">
-<div>
-    <div class="text-4xl">Good</div>
-    <div class="text-5xl font-semibold">{{ greeting }}</div>
-</div>
+    <div class="mb-8">
+        <div class="text-4xl">Good</div>
+        <div class="text-5xl font-semibold">{{ greeting }}</div>
+    </div>
 
-<div class="header">
-    <form [formGroup]="formGroup">
-      <p-selectbutton
-        [options]="stateOptions"
-        formControlName="toggle"
-        (onChange)="onToggleChange($event)"
-      ></p-selectbutton>
-    </form>
-  </div>
+    <div class="header">
+        <form [formGroup]="formGroup">
+            <p-selectbutton [options]="stateOptions" formControlName="toggle"
+                (onChange)="onToggleChange($event)"></p-selectbutton>
+        </form>
+    </div>
 </div>
