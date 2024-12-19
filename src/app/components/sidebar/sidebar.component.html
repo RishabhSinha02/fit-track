@@ -26,7 +26,7 @@
 
             <ng-template #notAll>
                 <button (click)="sidebarChange('All')"
-                    class="card bg-[#FBFBFB] hover:bg-gray-200 dark:bg-[#121212] dark:hover:bg-[#333] text-gray-100 dark:text-white p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
+                    class="card bg-[#FBFBFB] hover:bg-gray-200 dark:bg-[#121212] dark:hover:bg-[#333] text-gray-600 dark:text-white p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
                     <div class="mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
                             <path
@@ -54,7 +54,7 @@
                     </div>
                     <ng-template #notAll>
                         <button (click)="sidebarChange(user.name)"
-                            [ngClass]="{'bg-[#FBFBFB] hover:bg-gray-200 dark:bg-[#121212] dark:hover:bg-[#333] text-gray-100 dark:text-white': sidebarSelected !== user.name, 
+                            [ngClass]="{'bg-[#FBFBFB] hover:bg-gray-200 dark:bg-[#121212] dark:hover:bg-[#333] text-gray-600 dark:text-gray-100': sidebarSelected !== user.name, 
                                        'bg-[#2AAF74] text-white dark:bg-[#2AAF74] dark:text-white': sidebarSelected === user.name}"
                             class="card pl-8 p-3 flex justify-start gap-2 font-bold rounded-xl w-full">
                             <div class="mt-1">

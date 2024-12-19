@@ -1,8 +1,22 @@
 <div class="p-16 grid grid-cols-4 gap-8">
-  <div class="sidebar col-span-1">
+  <!-- Sidebar - Only visible on tablet and desktop -->
+  <div class="sidebar col-span-1 hidden sm:block">
     <app-sidebar (sidebarChangeEvent)="onSidebarChange($event)"></app-sidebar>
   </div>
-  <div class="content col-span-3">
+
+  <!-- Content - Only visible on tablet and desktop -->
+  <div class="content col-span-3 hidden sm:block">
     <app-main [sidebarSelected]="sidebarSelected"></app-main>
   </div>
+
+  <!-- Message - Visible on mobile devices -->
+  <div class="sm:hidden col-span-4 text-center text-gray-600 bg-gray-100 p-8 rounded-lg shadow-md border border-gray-300">
+    <p class="text-lg font-semibold text-gray-800">
+      <span class="block mb-4">
+        This app is only available on tablet and desktop devices.
+      </span>
+      <span class="text-sm text-gray-500">Please view on a larger screen for full access.</span>
+    </p>
+  </div>
+  
 </div>
