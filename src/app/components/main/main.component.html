@@ -5,18 +5,22 @@
     <app-table></app-table>
 
 </div>
-<div *ngIf="sidebarSelected !== 'All'">   
+<div *ngIf="sidebarSelected !== 'All'">
     <div *ngFor="let user of users">
         <!-- Check if the user's name matches the selected sidebar option -->
         <div *ngIf="user.name === sidebarSelected">
-            <p><strong>Name:</strong> {{ user.name }}</p>
-            <p><strong>Workouts:</strong></p>
-            <ul>
-                <li *ngFor="let workout of user.workouts">
-                    <strong>Type:</strong> {{ workout.type }}, 
-                    <strong>Minutes:</strong> {{ workout.minutes }}
-                </li>
-            </ul>
+          <div class="text-5xl font-semibold mb-8"> 😃 {{ user.name }}'s Workout Progress</div>
+          <!-- <p><strong>Workouts:</strong></p>
+          <ul>
+            <li *ngFor="let workout of user.workouts">
+              <strong>Type:</strong> {{ workout.type }},
+              <strong>Minutes:</strong> {{ workout.minutes }}
+            </li>
+          </ul> -->
+      
+          <!-- Pass the user data to the user-chart component -->
+          <app-user-chart [user]="user"></app-user-chart>
         </div>
-    </div>
+      </div>
+      
 </div>

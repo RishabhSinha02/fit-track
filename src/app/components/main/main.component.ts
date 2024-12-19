@@ -5,10 +5,11 @@ import { FiltersComponent } from "../filters/filters.component";
 import { Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserData, UserDataService } from '../../services/user-data.service';
+import { UserChartComponent } from "../user-chart/user-chart.component";
 
 @Component({
   selector: 'app-main',
-  imports: [HeaderComponent, TableComponent, FiltersComponent, CommonModule],
+  imports: [HeaderComponent, TableComponent, FiltersComponent, CommonModule, UserChartComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css',
   standalone: true,
