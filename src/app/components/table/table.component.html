@@ -1,10 +1,15 @@
+<app-filters
+(nameFilterChange)="onNameFilterChange($event)"
+  (workoutFilterChange)="onWorkoutFilterChange($event)"
+></app-filters>
+
 <div *ngIf="(users$ | async)?.length === 0; else tableContent" class="no-data text-center p-4 bg-gray-100 rounded-lg shadow-md">
   <p class="text-lg font-semibold text-gray-600">No data available.</p>
 </div>
 
 <ng-template #tableContent>
   <p-table
-    [value]="(users$ | async) || []"
+    [value]="(filteredUsers$ | async) || []"
     [paginator]="true"
     [rows]="5"
     [tableStyle]="{ 'min-width': '50rem' }"

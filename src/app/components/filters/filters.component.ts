@@ -4,6 +4,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
+import { Output, EventEmitter } from '@angular/core';
+
+
+
 
 @Component({
   selector: 'app-filters',
@@ -18,6 +22,9 @@ export class FiltersComponent {
   workoutMinutes = 0;
 
   visible = false;
+
+  @Output() nameFilterChange = new EventEmitter<string>();
+  @Output() workoutFilterChange = new EventEmitter<string>();
 
   constructor(private userDataService: UserDataService) {}
 
@@ -41,5 +48,15 @@ export class FiltersComponent {
       this.workoutMinutes = 0;
       this.hideDialog();
     }
+  }
+
+  onNameFilterChange(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.nameFilterChange.emit(value); // Emit the input value to the parent
+  }
+
+  onWorkoutFilterChange(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.workoutFilterChange.emit(value); // Emit the input value to the parent
   }
 }

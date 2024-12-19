@@ -2,20 +2,59 @@ import { Component } from '@angular/core';
 import { UserDataService } from '../../services/user-data.service';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
+import { BehaviorSubject } from 'rxjs';
+import { FiltersComponent } from '../filters/filters.component';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-table',
   standalone: true,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css'],
-  imports: [CommonModule, TableModule],
+  imports: [CommonModule, TableModule, FiltersComponent],
 })
 export class TableComponent {
   users$;
   first = 0; // Used to track current page
 
+  filteredUsers$;
+  nameFilter$ = new BehaviorSubject<string>(''); // Observable for name filter
+  workoutFilter$ = new BehaviorSubject<string>(''); // Observable for workout type filter
+
   constructor(private userDataService: UserDataService) {
     this.users$ = this.userDataService.users$;
+
+     // Combine the users and filter observables to calculate filtered users
+     this.filteredUsers$ = combineLatest([
+      this.users$,
+      this.nameFilter$,
+      this.workoutFilter$,
+    ]).pipe(
+      map(([users, nameFilter, workoutFilter]) =>
+        users.filter((user) =>
+          this.filterUser(user, nameFilter, workoutFilter)
+        )
+      )
+    );
+  }
+
+  filterUser(user: any, nameFilter: string, workoutFilter: string): boolean {
+    const nameMatch = user.name
+      .toLowerCase()
+      .includes(nameFilter.toLowerCase());
+    const workoutMatch = user.workouts.some((workout: any) =>
+      workout.type.toLowerCase().includes(workoutFilter.toLowerCase())
+    );
+    return nameMatch && workoutMatch;
+  }
+
+  onNameFilterChange(value: string): void {
+    this.nameFilter$.next(value); // Update name filter value
+  }
+
+  onWorkoutFilterChange(value: string): void {
+    this.workoutFilter$.next(value); // Update workout filter value
   }
 
   getTotalWorkoutMinutes(workouts: any[]): number {
